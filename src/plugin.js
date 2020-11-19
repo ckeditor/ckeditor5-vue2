@@ -8,6 +8,16 @@
 import Vue from 'vue';
 import CKEditorComponent from './ckeditor.js';
 
+const [ major ] = Vue.version.split( '.' ).map( i => parseInt( i, 10 ) );
+
+if ( major !== 2 ) {
+	throw Error(
+		'The CKEditor plugin works only with Vue 2.x ' +
+		'For more information, please refer to ' +
+		'https://ckeditor.com/docs/ckeditor5/latest/builds/guides/integration/frameworks/vuejs-v2.html'
+	);
+}
+
 const CKEditor = {
 	/**
 	 * Installs the plugin, registering the `<ckeditor>` component.
@@ -20,28 +30,4 @@ const CKEditor = {
 	component: CKEditorComponent
 };
 
-/**
- * Checks if CKEditor plugin supports currently installed Vue. This plugin supports only Vue 2.x.
- * The CKEditor plugin for Vue 3.x can be found on https://github.com/ckeditor/ckeditor5-vue2.
- *
- * @param {string} version Current version of the Vue framework.
- */
-function isVueSupported( version ) {
-	const currentVersion = parseInt( version );
-	const isSupported = currentVersion >= 2;
-	const isSupportedByThisRepo = currentVersion === 2;
-
-	if ( !isSupportedByThisRepo ) {
-		console.warn( 'This CKEditor plugin supports only Vue 2.x.' );
-
-		if ( isSupported ) {
-			console.warn(
-				`For Vue ${ version }, which you have currently installed, please visit https://github.com/ckeditor/ckeditor5-vue.`
-			);
-		}
-	}
-
-	return isSupportedByThisRepo;
-}
-
-export default isVueSupported( Vue.version ) ? CKEditor : {};
+export default CKEditor;
