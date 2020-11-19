@@ -1,8 +1,8 @@
 {
-  "name": "@ckeditor/ckeditor5-vue",
+  "name": "@ckeditor/ckeditor5-vue2",
   "version": "1.0.3",
   "main": "dist/ckeditor.js",
-  "description": "Official Vue.js component for CKEditor 5 – the best browser-based rich text editor.",
+  "description": "Official Vue.js 1.x and 2.x component for CKEditor 5 – the best browser-based rich text editor.",
   "keywords": [
     "wysiwyg",
     "rich text",
@@ -67,7 +67,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/ckeditor/ckeditor5-vue.git"
+    "url": "https://github.com/ckeditor/ckeditor5-vue2.git"
   },
   "files": [
     "dist"
@@ -75,7 +75,7 @@
   "author": "CKSource (http://cksource.com/)",
   "license": "GPL-2.0-or-later",
   "bugs": {
-    "url": "https://github.com/ckeditor/ckeditor5-vue/issues"
+    "url": "https://github.com/ckeditor/ckeditor5-vue2/issues"
   },
-  "homepage": "https://github.com/ckeditor/ckeditor5-vue"
+  "homepage": "https://github.com/ckeditor/ckeditor5-vue2"
 }
