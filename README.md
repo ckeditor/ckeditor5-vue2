@@ -1,4 +1,4 @@
-# CKEditor 5 rich text editor component for Vue.js 1.x and 2.x
+# CKEditor 5 rich text editor component for Vue.js 2.x
 
 [![npm version](https://badge.fury.io/js/%40ckeditor%2Fckeditor5-vue2.svg)](https://www.npmjs.com/package/@ckeditor/ckeditor5-vue2)
 [![Build Status](https://travis-ci.org/ckeditor/ckeditor5-vue2.svg?branch=master)](https://travis-ci.org/ckeditor/ckeditor5-vue2)
@@ -7,7 +7,7 @@
 [![Dependency Status](https://david-dm.org/ckeditor/ckeditor5-vue2/status.svg)](https://david-dm.org/ckeditor/ckeditor5-vue2)
 [![devDependency Status](https://david-dm.org/ckeditor/ckeditor5-vue2/dev-status.svg)](https://david-dm.org/ckeditor/ckeditor5-vue2?type=dev)
 
-⚠️ This repository contains the CKEditor 5 component for Vue.js `1.x` and `2.x`. The component for Vue.js `3+` is located in another repository - [@ckeditor/ckeditor5-vue](https://github.com/ckeditor/ckeditor5-vue).
+⚠️ This repository contains the CKEditor 5 component for Vue.js `2.x`. The component for Vue.js `3+` is located in another repository - [@ckeditor/ckeditor5-vue](https://github.com/ckeditor/ckeditor5-vue).
 
 Official [CKEditor 5](https://ckeditor.com/ckeditor-5/) rich text editor component for Vue.js.
 
