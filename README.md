@@ -1,4 +1,4 @@
-# CKEditor 5 rich text editor component for Vue.js
+# CKEditor 5 rich text editor component for Vue.js 1.x and 2.x
 
 [![npm version](https://badge.fury.io/js/%40ckeditor%2Fckeditor5-vue2.svg)](https://www.npmjs.com/package/@ckeditor/ckeditor5-vue2)
 [![Build Status](https://travis-ci.org/ckeditor/ckeditor5-vue2.svg?branch=master)](https://travis-ci.org/ckeditor/ckeditor5-vue2)
