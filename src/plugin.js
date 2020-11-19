@@ -12,7 +12,7 @@ const [ major ] = Vue.version.split( '.' ).map( i => parseInt( i, 10 ) );
 
 if ( major !== 2 ) {
 	throw Error(
-		'The CKEditor plugin works only with Vue 2.x ' +
+		'The CKEditor plugin works only with Vue 2.x. ' +
 		'For more information, please refer to ' +
 		'https://ckeditor.com/docs/ckeditor5/latest/builds/guides/integration/frameworks/vuejs-v2.html'
 	);
