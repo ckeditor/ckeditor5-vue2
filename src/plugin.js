@@ -3,15 +3,14 @@
  * For licensing, see LICENSE.md.
  */
 
- /* globals console */
-
 import Vue from 'vue';
 import CKEditorComponent from './ckeditor.js';
 
 const [ major ] = Vue.version.split( '.' ).map( i => parseInt( i, 10 ) );
 
+/* istanbul ignore if */
 if ( major !== 2 ) {
-	throw Error(
+	throw new Error(
 		'The CKEditor plugin works only with Vue 2.x. ' +
 		'For more information, please refer to ' +
 		'https://ckeditor.com/docs/ckeditor5/latest/builds/guides/integration/frameworks/vuejs-v2.html'
