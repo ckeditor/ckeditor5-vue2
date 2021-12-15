@@ -121,7 +121,9 @@ export default {
 
 		// Synchronize changes of #disabled.
 		disabled( val ) {
-			this.$_instance.isReadOnly = val;
+			if ( this.$_instance ) {
+				this.$_instance.isReadOnly = val;
+			}
 		}
 	},
 
