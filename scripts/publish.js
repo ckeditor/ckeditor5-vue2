@@ -5,6 +5,8 @@
  * For licensing, see LICENSE.md.
  */
 
+/* global require process */
+
 'use strict';
 
 require( '@ckeditor/ckeditor5-dev-env' )
