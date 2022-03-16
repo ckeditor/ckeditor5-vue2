@@ -5,6 +5,8 @@
  * For licensing, see LICENSE.md.
  */
 
+/* eslint-env node */
+
 'use strict';
 
 require( '@ckeditor/ckeditor5-dev-env' )
