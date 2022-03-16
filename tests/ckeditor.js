@@ -3,7 +3,7 @@
  * For licensing, see LICENSE.md.
  */
 
-/* global console, setTimeout */
+/* eslint-env node */
 
 import Vue from 'vue';
 import { mount } from '@vue/test-utils';

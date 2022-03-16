@@ -3,7 +3,7 @@
  * For licensing, see LICENSE.md.
  */
 
-/* global module */
+/* eslint-env node */
 
 // Note: The ESLint configuration is mandatory for vue-cli.
 module.exports = {

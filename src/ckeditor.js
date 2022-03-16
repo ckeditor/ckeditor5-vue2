@@ -3,7 +3,7 @@
  * For licensing, see LICENSE.md.
  */
 
-/* global console */
+/* eslint-env node */
 
 import { debounce } from 'lodash-es';
 

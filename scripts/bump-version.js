@@ -5,7 +5,7 @@
  * For licensing, see LICENSE.md.
  */
 
-/* global require process */
+/* eslint-env node */
 
 'use strict';
 
