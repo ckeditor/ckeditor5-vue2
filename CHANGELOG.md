@@ -1,6 +1,17 @@
 Changelog
 =========
 
+## [2.0.0](https://github.com/ckeditor/ckeditor5-vue2/compare/v1.0.5...v2.0.0) (2022-03-17)
+
+### BREAKING CHANGES
+
+* Upgraded the minimal versions of Node.js to `14.0.0` due to the end of LTS.
+
+### Other changes
+
+* Updated the required version of Node.js to 14. Closes [#10972](https://github.com/ckeditor/ckeditor5-vue2/issues/10972). ([commit](https://github.com/ckeditor/ckeditor5-vue2/commit/bd6e5c4f3d7b0d5fa6a94d2e3165d40c351a3179))
+
+
 ## [1.0.5](https://github.com/ckeditor/ckeditor5-vue2/compare/v1.0.4...v1.0.5) (2020-11-23)
 
 ### Bug fixes
