@@ -15,21 +15,70 @@ import {
 } from './_utils/mockeditor';
 
 describe( 'CKEditor Component', () => {
-	let sandbox, wrapper, vm;
+	let sandbox, wrapper, vm, CKEDITOR_VERSION;
 
 	beforeEach( () => {
+		CKEDITOR_VERSION = window.CKEDITOR_VERSION;
+		window.CKEDITOR_VERSION = '34.0.0';
+
 		( { wrapper, vm } = createComponent() );
 
 		sandbox = sinon.createSandbox();
 	} );
 
 	afterEach( () => {
+		window.CKEDITOR_VERSION = CKEDITOR_VERSION;
+
 		sandbox.restore();
 		wrapper.destroy();
 	} );
 
 	it( 'should have a name', () => {
 		expect( CKEditorComponent.name ).to.equal( 'ckeditor' );
+	} );
+
+	it( 'should print a warning if the "window.CKEDITOR_VERSION" variable is not available', async () => {
+		const warnStub = sandbox.stub( console, 'warn' );
+
+		delete window.CKEDITOR_VERSION;
+
+		sandbox.stub( MockEditor, 'create' ).resolves( new MockEditor() );
+		const { wrapper } = createComponent();
+
+		await Vue.nextTick();
+		wrapper.destroy();
+
+		expect( warnStub.callCount ).to.equal( 1 );
+		expect( warnStub.firstCall.args[ 0 ] ).to.equal( 'Cannot find the "CKEDITOR_VERSION" in the "window" scope.' );
+	} );
+
+	it( 'should print a warning if using CKEditor 5 in version lower than 34', async () => {
+		const warnStub = sandbox.stub( console, 'warn' );
+
+		window.CKEDITOR_VERSION = '30.0.0';
+
+		sandbox.stub( MockEditor, 'create' ).resolves( new MockEditor() );
+		const { wrapper } = createComponent();
+
+		await Vue.nextTick();
+		wrapper.destroy();
+
+		expect( warnStub.callCount ).to.equal( 1 );
+		expect( warnStub.firstCall.args[ 0 ] ).to.equal( 'The <CKEditor> component requires using CKEditor 5 in version 34 or higher.' );
+	} );
+
+	it( 'should not print any warninig if using CKEditor 5 in version 34 or higher', async () => {
+		const warnStub = sandbox.stub( console, 'warn' );
+
+		window.CKEDITOR_VERSION = '34.0.0';
+
+		sandbox.stub( MockEditor, 'create' ).resolves( new MockEditor() );
+		const { wrapper } = createComponent();
+
+		await Vue.nextTick();
+		wrapper.destroy();
+
+		expect( warnStub.callCount ).to.equal( 0 );
 	} );
 
 	it( 'should call editor#create when initializing', async () => {
@@ -242,6 +291,12 @@ describe( 'CKEditor Component', () => {
 			await Vue.nextTick();
 
 			expect( vm.$_instance._readOnlyLocks.size ).to.equal( 0 );
+
+			wrapper.setProps( { disabled: true } );
+
+			await Vue.nextTick();
+
+			expect( vm.$_instance._readOnlyLocks.size ).to.equal( 1 );
 
 			wrapper.destroy();
 		} );
