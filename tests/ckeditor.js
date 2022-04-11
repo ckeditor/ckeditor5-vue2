@@ -123,19 +123,36 @@ describe( 'CKEditor Component', () => {
 			} );
 		} );
 
-		describe( '#disabled', () => {
-			it( 'should be defined', () => {
-				expect( vm.disabled ).to.be.false;
+		describe( '_readOnlyLocks', () => {
+			it( 'should be an instance of set', async () => {
+				const { wrapper, vm } = createComponent();
+
+				await Vue.nextTick();
+
+				expect( vm.$_instance._readOnlyLocks ).to.be.instanceOf( Set );
+
+				wrapper.destroy();
 			} );
 
-			it( 'should set the initial editor#isReadOnly', async () => {
+			it( 'should be empty when editor is not set to read only mode', async () => {
+				const { wrapper, vm } = createComponent();
+
+				await Vue.nextTick();
+
+				expect( vm.$_instance._readOnlyLocks.size ).to.equal( 0 );
+
+				wrapper.destroy();
+			} );
+
+			it( 'should contain one lock when editor is set to read only mode', async () => {
 				const { wrapper, vm } = createComponent( {
 					disabled: true
 				} );
 
 				await Vue.nextTick();
 
-				expect( vm.$_instance.isReadOnly ).to.be.true;
+				expect( vm.$_instance._readOnlyLocks.size ).to.equal( 1 );
+
 				wrapper.destroy();
 			} );
 		} );
@@ -211,20 +228,20 @@ describe( 'CKEditor Component', () => {
 	} );
 
 	describe( 'bindings', () => {
-		it( '#disabled should control editor#isReadOnly', async () => {
+		it( '#disabled should control read only mode of the editor', async () => {
 			const { wrapper, vm } = createComponent( {
 				disabled: true
 			} );
 
 			await Vue.nextTick();
 
-			expect( vm.$_instance.isReadOnly ).to.be.true;
+			expect( vm.$_instance._readOnlyLocks.size ).to.equal( 1 );
 
 			wrapper.setProps( { disabled: false } );
 
 			await Vue.nextTick();
 
-			expect( vm.$_instance.isReadOnly ).to.be.false;
+			expect( vm.$_instance._readOnlyLocks.size ).to.equal( 0 );
 
 			wrapper.destroy();
 		} );

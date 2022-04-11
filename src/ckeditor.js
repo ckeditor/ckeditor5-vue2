@@ -7,6 +7,7 @@
 
 import { debounce } from 'lodash-es';
 
+const SAMPLE_READ_ONLY_LOCK_ID = 'Integration Sample';
 const INPUT_EVENT_DEBOUNCE_WAIT = 300;
 
 export default {
@@ -67,7 +68,9 @@ export default {
 				this.$_instance = editor;
 
 				// Set initial disabled state.
-				editor.isReadOnly = this.disabled;
+				if ( this.disabled ) {
+					editor.enableReadOnlyMode( SAMPLE_READ_ONLY_LOCK_ID );
+				}
 
 				this.$_setUpEditorEvents();
 
@@ -94,12 +97,12 @@ export default {
 		value( newValue, oldValue ) {
 			// Synchronize changes of #value. There are two sources of changes:
 			//
-			//                     External value change      ------\
-			//                                                       -----> +-----------+
-			//                                                              | Component |
-			//                                                       -----> +-----------+
-			//                     Internal data change       ------/
-			//              (typing, commands, collaboration)
+			//                   External value change        ──────╮
+			//                                                      ╰─────> ┏━━━━━━━━━━━┓
+			//                                                              ┃ Component ┃
+			//                                                      ╭─────> ┗━━━━━━━━━━━┛
+			//                   Internal data change         ──────╯
+			//             (typing, commands, collaboration)
 			//
 			// Case 1: If the change was external (via props), the editor data must be synced with
 			// the component using $_instance#setData() and it is OK to destroy the selection.
@@ -120,8 +123,12 @@ export default {
 		},
 
 		// Synchronize changes of #disabled.
-		disabled( val ) {
-			this.$_instance.isReadOnly = val;
+		disabled( readOnlyMode ) {
+			if ( readOnlyMode ) {
+				this.$_instance.enableReadOnlyMode( SAMPLE_READ_ONLY_LOCK_ID );
+			} else {
+				this.$_instance.disableReadOnlyMode( SAMPLE_READ_ONLY_LOCK_ID );
+			}
 		}
 	},
 
