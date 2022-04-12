@@ -7,10 +7,28 @@
 
 import { debounce } from 'lodash-es';
 
+const SAMPLE_READ_ONLY_LOCK_ID = 'Integration Sample';
 const INPUT_EVENT_DEBOUNCE_WAIT = 300;
 
 export default {
 	name: 'ckeditor',
+
+	created() {
+		const { CKEDITOR_VERSION } = window;
+
+		// Starting from v34.0.0, CKEditor 5 introduces a lock mechanism enabling/disabling the read-only mode.
+		// As it is a breaking change between major releases of the integration, the component requires using
+		// CKEditor 5 in version 34 or higher.
+		if ( CKEDITOR_VERSION ) {
+			const [ major ] = CKEDITOR_VERSION.split( '.' ).map( Number );
+
+			if ( major < 34 ) {
+				console.warn( 'The <CKEditor> component requires using CKEditor 5 in version 34 or higher.' );
+			}
+		} else {
+			console.warn( 'Cannot find the "CKEDITOR_VERSION" in the "window" scope.' );
+		}
+	},
 
 	render( createElement ) {
 		return createElement( this.tagName );
@@ -67,7 +85,9 @@ export default {
 				this.$_instance = editor;
 
 				// Set initial disabled state.
-				editor.isReadOnly = this.disabled;
+				if ( this.disabled ) {
+					editor.enableReadOnlyMode( SAMPLE_READ_ONLY_LOCK_ID );
+				}
 
 				this.$_setUpEditorEvents();
 
@@ -94,12 +114,12 @@ export default {
 		value( newValue, oldValue ) {
 			// Synchronize changes of #value. There are two sources of changes:
 			//
-			//                     External value change      ------\
-			//                                                       -----> +-----------+
-			//                                                              | Component |
-			//                                                       -----> +-----------+
-			//                     Internal data change       ------/
-			//              (typing, commands, collaboration)
+			//                   External value change        ──────╮
+			//                                                      ╰─────> ┏━━━━━━━━━━━┓
+			//                                                              ┃ Component ┃
+			//                                                      ╭─────> ┗━━━━━━━━━━━┛
+			//                   Internal data change         ──────╯
+			//             (typing, commands, collaboration)
 			//
 			// Case 1: If the change was external (via props), the editor data must be synced with
 			// the component using $_instance#setData() and it is OK to destroy the selection.
@@ -120,8 +140,12 @@ export default {
 		},
 
 		// Synchronize changes of #disabled.
-		disabled( val ) {
-			this.$_instance.isReadOnly = val;
+		disabled( readOnlyMode ) {
+			if ( readOnlyMode ) {
+				this.$_instance.enableReadOnlyMode( SAMPLE_READ_ONLY_LOCK_ID );
+			} else {
+				this.$_instance.disableReadOnlyMode( SAMPLE_READ_ONLY_LOCK_ID );
+			}
 		}
 	},
 
