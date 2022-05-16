@@ -3,7 +3,7 @@
  * For licensing, see LICENSE.md.
  */
 
-/* eslint-env node */
+/* global console, setTimeout, window */
 
 import Vue from 'vue';
 import { mount } from '@vue/test-utils';
@@ -151,6 +151,21 @@ describe( 'CKEditor Component', () => {
 
 				expect( vm.$_instance.config.initialData ).to.equal( 'foo' );
 				expect( vm.$_instance.setDataCounter ).to.equal( 0 );
+
+				wrapper.destroy();
+			} );
+
+			it( 'should sync the editor data after editor is ready', async () => {
+				const { wrapper, vm } = createComponent( {
+					value: 'foo'
+				} );
+
+				wrapper.setProps( { value: 'bar' } );
+
+				await Vue.nextTick();
+
+				expect( vm.$_instance.getData() ).to.equal( 'bar' );
+				expect( vm.$_instance.setDataCounter ).to.equal( 1 );
 
 				wrapper.destroy();
 			} );
@@ -327,6 +342,26 @@ describe( 'CKEditor Component', () => {
 			sinon.assert.calledTwice( spy );
 			sinon.assert.calledWithExactly( spy.firstCall, 'foo' );
 			sinon.assert.calledWithExactly( spy.secondCall, 'bar' );
+		} );
+
+		it( '#value should trigger editor#setData only if data is changed', async () => {
+			await Vue.nextTick();
+
+			const spy = sandbox.spy( vm.$_instance, 'setData' );
+
+			wrapper.setProps( { value: 'foo' } );
+
+			await Vue.nextTick();
+
+			wrapper.setProps( { value: 'foo' } );
+
+			await Vue.nextTick();
+
+			wrapper.setProps( { value: 'foo' } );
+
+			await Vue.nextTick();
+
+			sinon.assert.calledOnce( spy );
 		} );
 	} );
 

@@ -3,7 +3,7 @@
  * For licensing, see LICENSE.md.
  */
 
-/* eslint-env browser */
+/* global document */
 
 import Vue from 'vue';
 import { mount } from '@vue/test-utils';
