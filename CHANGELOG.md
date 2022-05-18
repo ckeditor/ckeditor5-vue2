@@ -1,6 +1,13 @@
 Changelog
 =========
 
+## [3.0.1](https://github.com/ckeditor/ckeditor5-vue2/compare/v3.0.0...v3.0.1) (2022-05-18)
+
+### Bug fixes
+
+* Synchronize the editor content after the editor is ready. Closes [#21](https://github.com/ckeditor/ckeditor5-vue2/issues/21). ([commit](https://github.com/ckeditor/ckeditor5-vue2/commit/9c56952396dbcd61836f1f36af9041edf1ca7e54))
+
+
 ## [3.0.0](https://github.com/ckeditor/ckeditor5-vue2/compare/v2.0.0...v3.0.0) (2022-04-12)
 
 ### BREAKING CHANGES
