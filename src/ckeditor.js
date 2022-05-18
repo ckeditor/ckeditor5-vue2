@@ -3,7 +3,7 @@
  * For licensing, see LICENSE.md.
  */
 
-/* eslint-env node */
+/* global window, console */
 
 import { debounce } from 'lodash-es';
 
@@ -84,12 +84,18 @@ export default {
 				// Save the reference to the $_instance for further use.
 				this.$_instance = editor;
 
+				this.$_setUpEditorEvents();
+
+				// Synchronize the editor content. The #value may change while the editor is being created, so the editor content has to be
+				// synchronized with these potential changes as soon as it is ready.
+				if ( this.value !== editorConfig.initialData ) {
+					editor.setData( this.value );
+				}
+
 				// Set initial disabled state.
 				if ( this.disabled ) {
 					editor.enableReadOnlyMode( SAMPLE_READ_ONLY_LOCK_ID );
 				}
-
-				this.$_setUpEditorEvents();
 
 				// Let the world know the editor is ready.
 				this.$emit( 'ready', editor );
@@ -111,7 +117,7 @@ export default {
 	},
 
 	watch: {
-		value( newValue, oldValue ) {
+		value( value ) {
 			// Synchronize changes of #value. There are two sources of changes:
 			//
 			//                   External value change        ──────╮
@@ -134,8 +140,8 @@ export default {
 			//    * the new value is different than the last internal instance state (Case 2.)
 			//
 			// See: https://github.com/ckeditor/ckeditor5-vue/issues/42.
-			if ( newValue !== oldValue && newValue !== this.$_lastEditorData ) {
-				this.$_instance.setData( newValue );
+			if ( this.$_instance && value !== this.$_lastEditorData ) {
+				this.$_instance.setData( value );
 			}
 		},
 
