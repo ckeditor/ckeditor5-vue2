@@ -89,7 +89,11 @@ export default {
 				// Synchronize the editor content. The #value may change while the editor is being created, so the editor content has to be
 				// synchronized with these potential changes as soon as it is ready.
 				if ( this.value !== editorConfig.initialData ) {
-					editor.setData( this.value );
+					if ( this.value != null ) {
+						editor.setData( this.value );
+					} else {
+						editor.setData( '' );
+					}
 				}
 
 				// Set initial disabled state.
@@ -141,7 +145,11 @@ export default {
 			//
 			// See: https://github.com/ckeditor/ckeditor5-vue/issues/42.
 			if ( this.$_instance && value !== this.$_lastEditorData ) {
-				this.$_instance.setData( value );
+				if ( value != null ) {
+					this.$_instance.setData( value );
+				} else {
+					this.$_instance.setData( '' );
+				}
 			}
 		},
 
