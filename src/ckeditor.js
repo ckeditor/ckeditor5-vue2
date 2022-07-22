@@ -102,7 +102,6 @@ export default {
 			} )
 			.catch( error => {
 				console.error( error );
-				this.$emit( 'error', error );
 			} );
 	},
 

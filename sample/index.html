@@ -35,7 +35,6 @@
 			@focus="onEditorFocus"
 			@blur="onEditorBlur"
 			@input="onEditorInput"
-			@error="onEditorError"
 			@destroy="onEditorDestroy"
 		></ckeditor>
 		<button v-on:click="toggleEditorDisabled()">
@@ -68,9 +67,6 @@
 
 				onEditorReady( editor ) {
 					console.log( 'Editor is ready.', { editor } );
-				},
-				onEditorError( error ) {
-					console.log( 'Editor had an error.', { error } );
 				},
 				onEditorFocus( event, editor ) {
 					console.log( 'Editor focused.', { event, editor } );
