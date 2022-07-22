@@ -88,7 +88,7 @@ export default {
 
 				// Synchronize the editor content. The #value may change while the editor is being created, so the editor content has to be
 				// synchronized with these potential changes as soon as it is ready.
-				if ( this.value !== editorConfig.initialData ) {
+				if ( this.value !== null && this.value !== editorConfig.initialData ) {
 					editor.setData( this.value );
 				}
 
