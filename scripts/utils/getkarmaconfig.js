@@ -24,8 +24,9 @@ module.exports = function getKarmaConfig() {
 					test: /\.js$/,
 					loader: 'babel-loader',
 					exclude: /node_modules/,
-					query: {
-						compact: false
+					options: {
+						compact: false,
+						plugins: []
 					}
 				}
 			]
@@ -35,7 +36,7 @@ module.exports = function getKarmaConfig() {
 	const karmaConfig = {
 		basePath,
 
-		frameworks: [ 'mocha', 'chai', 'sinon' ],
+		frameworks: [ 'mocha', 'chai', 'sinon', 'webpack' ],
 
 		files: [
 			'tests/**/*.js'
@@ -92,10 +93,6 @@ module.exports = function getKarmaConfig() {
 	if ( options.coverage ) {
 		karmaConfig.reporters.push( 'coverage' );
 
-		if ( process.env.TRAVIS ) {
-			karmaConfig.reporters.push( 'coveralls' );
-		}
-
 		karmaConfig.coverageReporter = {
 			reporters: [
 				// Prints a table after tests result.
@@ -115,17 +112,16 @@ module.exports = function getKarmaConfig() {
 			]
 		};
 
-		webpackConfig.module.rules.push( {
-			test: /\.js$/,
-			loader: 'istanbul-instrumenter-loader',
-			include: /src/,
-			exclude: [
-				/node_modules/
-			],
-			query: {
-				esModules: true
+		webpackConfig.module.rules[ 0 ].options.plugins.push( [
+			'babel-plugin-istanbul', {
+				include: [
+					'src'
+				],
+				exclude: [
+					'node_modules'
+				]
 			}
-		} );
+		] );
 	}
 
 	if ( options.sourceMap ) {
