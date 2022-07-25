@@ -5,15 +5,19 @@
 
 /* global document */
 
-import Vue from 'vue';
-import { mount } from '@vue/test-utils';
+import { mount, createLocalVue } from '@vue/test-utils';
 import CKEditor from '../../src/plugin';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
-Vue.use( CKEditor );
-
 describe( 'CKEditor plugin', () => {
 	describe( 'Vue.use()', () => {
+		let localVue;
+
+		beforeEach( () => {
+			localVue = createLocalVue();
+			localVue.use( CKEditor );
+		} );
+
 		it( 'should work with an actual editor build', done => {
 			const domElement = document.createElement( 'div' );
 			document.body.appendChild( domElement );
@@ -32,6 +36,7 @@ describe( 'CKEditor plugin', () => {
 					}
 				}
 			}, {
+				localVue,
 				attachTo: domElement,
 				data: () => {
 					return {
