@@ -41,6 +41,7 @@
     "karma-sinon": "^1.0.5",
     "karma-sourcemap-loader": "^0.3.8",
     "karma-webpack": "^5.0.0",
+    "lint-staged": "^10.2.11",
     "lodash-es": "^4.17.11",
     "minimist": "^1.2.0",
     "mocha": "^10.1.0",
@@ -83,5 +84,10 @@
   "homepage": "https://github.com/ckeditor/ckeditor5-vue2",
   "eslintIgnore": [
     "dist/**"
-  ]
+  ],
+  "lint-staged": {
+    "**/*.js": [
+      "eslint --quiet"
+    ]
+  }
 }
