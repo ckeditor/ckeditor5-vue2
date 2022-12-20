@@ -9,7 +9,7 @@
 
 'use strict';
 
-require( '@ckeditor/ckeditor5-dev-env' )
+require( '@ckeditor/ckeditor5-dev-release-tools' )
 	.releaseSubRepositories( {
 		cwd: process.cwd(),
 		packages: null,
