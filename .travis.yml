@@ -5,14 +5,19 @@ addons:
   firefox: latest
 language: node_js
 services:
-- xvfb
+  - xvfb
 node_js:
-- lts/*
+  - node
 cache:
-- node_modules
+  - node_modules
 install:
-- npm install
+  - npm install
+before_install:
+  - export START_TIME=$( date +%s )
 script:
   - npm run coverage
   - npm run test -- --browsers=Firefox
   - if [[ $TRAVIS_TEST_RESULT -eq 0 ]]; then cat coverage/lcov.info | ./node_modules/.bin/coveralls; fi
+after_script:
+  - export END_TIME=$( date +%s )
+  - ckeditor5-dev-ci-notify-travis-status
