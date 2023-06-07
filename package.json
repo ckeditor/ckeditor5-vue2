@@ -66,8 +66,6 @@
     "changelog": "node ./scripts/changelog.js",
     "release:prepare-packages": "node ./scripts/preparepackages.js",
     "release:publish-packages": "node ./scripts/publishpackages.js",
-    "prerelease": "npm run build; if [ -n \"$(git status dist/ --porcelain)\" ]; then git add -u dist/ && git commit -m 'Internal: Build.'; fi",
-    "release": "node ./scripts/release.js",
     "test": "node ./scripts/test.js",
     "coverage": "node ./scripts/test.js --coverage",
     "lint": "eslint --quiet \"**/*.js\""
@@ -77,6 +75,7 @@
     "url": "https://github.com/ckeditor/ckeditor5-vue2.git"
   },
   "files": [
+    "scripts/postinstall.js",
     "dist",
     "README.md",
     "CHANGELOG.md",
