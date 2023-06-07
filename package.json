@@ -20,11 +20,11 @@
   ],
   "devDependencies": {
     "@babel/core": "^7.0.0",
-    "@ckeditor/ckeditor5-build-classic": "^34.0.0",
-    "@ckeditor/ckeditor5-dev-bump-year": "^36.0.0",
-    "@ckeditor/ckeditor5-dev-ci": "^36.0.0",
-    "@ckeditor/ckeditor5-dev-release-tools": "^36.0.0",
-    "@ckeditor/ckeditor5-dev-utils": "^36.0.0",
+    "@ckeditor/ckeditor5-build-classic": "^38.0.0",
+    "@ckeditor/ckeditor5-dev-bump-year": "^38.0.0",
+    "@ckeditor/ckeditor5-dev-ci": "^38.0.0",
+    "@ckeditor/ckeditor5-dev-release-tools": "^38.0.0",
+    "@ckeditor/ckeditor5-dev-utils": "^38.0.0",
     "@vue/test-utils": "^1.3.0",
     "babel-loader": "^8.0.5",
     "babel-plugin-istanbul": "^6.1.0",
@@ -44,6 +44,7 @@
     "karma-sourcemap-loader": "^0.3.8",
     "karma-webpack": "^5.0.0",
     "lint-staged": "^10.2.11",
+    "listr2": "^6.5.0",
     "lodash-es": "^4.17.11",
     "minimist": "^1.2.0",
     "mocha": "^10.1.0",
@@ -63,8 +64,8 @@
     "build": "webpack --mode production",
     "develop": "webpack --mode development --watch",
     "changelog": "node ./scripts/changelog.js",
-    "release:bump-version": "node ./scripts/bump-version.js",
-    "release:publish": "node ./scripts/publish.js",
+    "release:prepare-packages": "node ./scripts/preparepackages.js",
+    "release:publish-packages": "node ./scripts/publishpackages.js",
     "prerelease": "npm run build; if [ -n \"$(git status dist/ --porcelain)\" ]; then git add -u dist/ && git commit -m 'Internal: Build.'; fi",
     "release": "node ./scripts/release.js",
     "test": "node ./scripts/test.js",
@@ -76,7 +77,10 @@
     "url": "https://github.com/ckeditor/ckeditor5-vue2.git"
   },
   "files": [
-    "dist"
+    "dist",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE.md"
   ],
   "author": "CKSource (http://cksource.com/)",
   "license": "GPL-2.0-or-later",
