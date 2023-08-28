@@ -56,11 +56,12 @@
     "webpack-cli": "^4.10.0"
   },
   "resolutions": {
-    "semver": "^7"
+    "strip-ansi-cjs": "1.0.0",
+    "string-width": "^4.0.0",
+    "semver": "^7.0.0"
   },
   "engines": {
-    "node": ">=16.0.0",
-    "npm": ">=5.7.1"
+    "node": ">=16.0.0"
   },
   "scripts": {
     "postinstall": "node ./scripts/postinstall.js",
