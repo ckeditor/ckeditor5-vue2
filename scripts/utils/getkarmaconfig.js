@@ -64,7 +64,7 @@ module.exports = function getKarmaConfig() {
 		browsers: getBrowsers( options.browsers ),
 
 		customLaunchers: {
-			CHROME_TRAVIS_CI: {
+			CHROME_CI: {
 				base: 'Chrome',
 				flags: [ '--no-sandbox', '--disable-background-timer-throttling' ]
 			},
@@ -110,6 +110,11 @@ module.exports = function getKarmaConfig() {
 					type: 'lcovonly',
 					subdir: '.',
 					dir: coverageDir
+				},
+				{
+					type: 'json',
+					dir: coverageDir,
+					subdir: '.'
 				}
 			]
 		};
@@ -151,7 +156,7 @@ function getBrowsers( browsers ) {
 			return browser;
 		}
 
-		return process.env.TRAVIS ? 'CHROME_TRAVIS_CI' : 'CHROME_LOCAL';
+		return process.env.TRAVIS ? 'CHROME_CI' : 'CHROME_LOCAL';
 	} );
 }
 
