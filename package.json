@@ -67,9 +67,9 @@
     "postinstall": "node ./scripts/postinstall.js",
     "build": "webpack --mode production",
     "develop": "webpack --mode development --watch",
-    "changelog": "node ./scripts/changelog.js",
-    "release:prepare-packages": "node ./scripts/preparepackages.js",
-    "release:publish-packages": "node ./scripts/publishpackages.js",
+    "changelog": "node ./scripts/changelog.mjs",
+    "release:prepare-packages": "node ./scripts/preparepackages.mjs",
+    "release:publish-packages": "node ./scripts/publishpackages.mjs",
     "test": "node ./scripts/test.js",
     "coverage": "node ./scripts/test.js --coverage",
     "lint": "eslint --quiet \"**/*.js\""

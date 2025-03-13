@@ -9,8 +9,10 @@
 
 /* eslint-env node */
 
+import { generateChangelogForSinglePackage } from '@ckeditor/ckeditor5-dev-release-tools';
+
 /**
  * Scripts for generating the changelog before starting the release process.
  */
 
-require( '@ckeditor/ckeditor5-dev-release-tools' ).generateChangelogForSinglePackage();
+generateChangelogForSinglePackage();

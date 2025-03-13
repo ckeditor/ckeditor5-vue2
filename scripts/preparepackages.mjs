@@ -9,18 +9,29 @@
 
 'use strict';
 
-const { Listr } = require( 'listr2' );
-const releaseTools = require( '@ckeditor/ckeditor5-dev-release-tools' );
-const { tools } = require( '@ckeditor/ckeditor5-dev-utils' );
+import { createRequire } from 'module';
+import { Listr } from 'listr2';
+import {
+	getLastFromChangelog,
+	getChangesForVersion,
+	validateRepositoryToRelease,
+	updateVersions,
+	prepareRepository,
+	cleanUpPackages,
+	commitAndTag
+} from '@ckeditor/ckeditor5-dev-release-tools';
+import { tools } from '@ckeditor/ckeditor5-dev-utils';
 
-const latestVersion = releaseTools.getLastFromChangelog();
-const versionChangelog = releaseTools.getChangesForVersion( latestVersion );
+const require = createRequire( import.meta.url );
+
+const latestVersion = getLastFromChangelog();
+const versionChangelog = getChangesForVersion( latestVersion );
 
 const tasks = new Listr( [
 	{
 		title: 'Verifying the repository.',
 		task: async () => {
-			const errors = await releaseTools.validateRepositoryToRelease( {
+			const errors = await validateRepositoryToRelease( {
 				version: latestVersion,
 				changes: versionChangelog,
 				branch: 'master'
@@ -36,7 +47,7 @@ const tasks = new Listr( [
 	{
 		title: 'Updating the `#version` field.',
 		task: () => {
-			return releaseTools.updateVersions( {
+			return updateVersions( {
 				version: latestVersion
 			} );
 		}
@@ -49,8 +60,8 @@ const tasks = new Listr( [
 	},
 	{
 		title: 'Creating the `ckeditor5-vue2` package in the release directory.',
-		task: () => {
-			return releaseTools.prepareRepository( {
+		task: async () => {
+			return prepareRepository( {
 				outputDirectory: 'release',
 				rootPackageJson: require( '../package.json' )
 			} );
@@ -59,7 +70,7 @@ const tasks = new Listr( [
 	{
 		title: 'Cleaning-up.',
 		task: () => {
-			return releaseTools.cleanUpPackages( {
+			return cleanUpPackages( {
 				packagesDirectory: 'release'
 			} );
 		}
@@ -67,7 +78,7 @@ const tasks = new Listr( [
 	{
 		title: 'Commit & tag.',
 		task: () => {
-			return releaseTools.commitAndTag( {
+			return commitAndTag( {
 				version: latestVersion,
 				files: [
 					'package.json'

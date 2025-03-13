@@ -7,12 +7,15 @@
 
 /* eslint-env node */
 
-const path = require( 'path' );
-const webpack = require( 'webpack' );
-const { bundler } = require( '@ckeditor/ckeditor5-dev-utils' );
-const TerserPlugin = require( 'terser-webpack-plugin' );
+import path from 'path';
+import { fileURLToPath } from 'url';
+import webpack from 'webpack';
+import { bundler } from '@ckeditor/ckeditor5-dev-utils';
+import TerserPlugin from 'terser-webpack-plugin';
 
-module.exports = {
+const __dirname = path.dirname( fileURLToPath( import.meta.url ) );
+
+export default {
 	mode: 'production',
 	devtool: 'source-map',
 	entry: path.join( __dirname, 'src', 'plugin.js' ),
